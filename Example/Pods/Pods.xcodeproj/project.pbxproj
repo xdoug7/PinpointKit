@@ -55,7 +55,6 @@
 		BA9E3C995C3F976EEB6B6F36AC1BFCA0 /* ArrowAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D985577E07C3A9560176696C04C7C5 /* ArrowAnnotationView.swift */; };
 		BB14C7245EF8C5C53A329FDFC33C87A7 /* PinpointKit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AF939EA575E5EEA924172E930A87A9B /* PinpointKit.xcassets */; };
 		BB48D4284469352DF66487E59A1F58D0 /* UIView+PinpointKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09734A1D471212628CAD67818FACB1A /* UIView+PinpointKit.swift */; };
-		BBD7301E7AEF029ACFA45662098779B2 /* ScreenshotDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26347F54419B3F4E3467C55160FA800C /* ScreenshotDetector.swift */; };
 		BF4E47DB4865A86044589404A9F72427 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100902886CAA9EDA1CA82E92245BD33A /* Feedback.swift */; };
 		C546C94D0D92EBDF865FBAE94476F04D /* ShakeDetectingWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ACB9AF788D5E295E169BC7A760A86F /* ShakeDetectingWindow.swift */; };
 		C99BDA75BC87B73DA94E0A70D0710E05 /* LogViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD7DD72AFC87524A66440B5E5A79AB9 /* LogViewer.swift */; };
@@ -94,7 +93,6 @@
 		1B5B6A4B3BF2B3CF780CDC82754080EF /* Pods-PinpointKitExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PinpointKitExample.release.xcconfig"; sourceTree = "<group>"; };
 		227DBC70734B340C20B25880392673A2 /* InterfaceCustomization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InterfaceCustomization.swift; sourceTree = "<group>"; };
 		23651F86BCDE246DFBAC62EEC46B4C95 /* FeedbackNavigationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FeedbackNavigationController.swift; sourceTree = "<group>"; };
-		26347F54419B3F4E3467C55160FA800C /* ScreenshotDetector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScreenshotDetector.swift; sourceTree = "<group>"; };
 		27032D9F4F56EFF15F8B4838B98DD05B /* BarButtonItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BarButtonItem.swift; sourceTree = "<group>"; };
 		289D31D417696A11023BDEF133CCD1B1 /* AnnotationViewFactory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AnnotationViewFactory.swift; sourceTree = "<group>"; };
 		30F5AA4FD467BB51C36043607DA27DA3 /* Configuration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -360,7 +358,6 @@
 				E1851531A8ED6419FF3F0CE6020D5F12 /* PinpointKit.swift */,
 				78BE17CC17A940358625098ABA7F70EB /* PinpointKit+ShakePresentation.swift */,
 				D55BACDCA6375FB67E334AD4C239257D /* Screen.swift */,
-				26347F54419B3F4E3467C55160FA800C /* ScreenshotDetector.swift */,
 				A89C1484541D21C4281BA3ED93971A21 /* ScreenshotCell.swift */,
 				A0C594DAC52E5B086F8E2DEE8C7280E4 /* Screenshotter.swift */,
 				8B6FB4763E282677F56C8288F0B396C1 /* Sender.swift */,
@@ -560,7 +557,6 @@
 				46AF921DFAFF63E0B13C51330193AC1F /* PinpointKit-dummy.m in Sources */,
 				398B99C91925A9B4E41A5B6EAAC0228F /* PinpointKit.swift in Sources */,
 				229383B182F6B754B745B8FCEF71D7D8 /* Screen.swift in Sources */,
-				BBD7301E7AEF029ACFA45662098779B2 /* ScreenshotDetector.swift in Sources */,
 				34194259F73BE7AB550BC1566EE08814 /* ScreenshotCell.swift in Sources */,
 				AEC384A90C20C186F0BE8C7E40C9C6F2 /* Screenshotter.swift in Sources */,
 				E829B409D59574D91BDDE621962DA38F /* Sender.swift in Sources */,
