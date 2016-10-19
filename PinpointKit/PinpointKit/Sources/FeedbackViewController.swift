@@ -115,17 +115,20 @@ public final class FeedbackViewController: UITableViewController {
         
         // We must set the screenshot before showing the view controller.
         editor.setScreenshot(screenshot)
-        let header = ScreenshotHeaderView()
+        if #available(iOS 9.0, *) {
+            let header = ScreenshotHeaderView()
+            header.viewModel = ScreenshotHeaderView.ViewModel(screenshot: screenshotToDisplay, hintText: interfaceCustomization?.interfaceText.feedbackEditHint, hintFont: interfaceCustomization?.appearance.feedbackEditHintFont)
+            header.screenshotButtonTapHandler = { [weak self] button in
+                let editImageViewController = NavigationController(rootViewController: editor.viewController)
+                editImageViewController.view.tintColor = self?.interfaceCustomization?.appearance.tintColor
+                self?.presentViewController(editImageViewController, animated: true, completion: nil)
+            }
 
-        header.viewModel = ScreenshotHeaderView.ViewModel(screenshot: screenshotToDisplay, hintText: interfaceCustomization?.interfaceText.feedbackEditHint, hintFont: interfaceCustomization?.appearance.feedbackEditHintFont)
-        header.screenshotButtonTapHandler = { [weak self] button in
-            let editImageViewController = NavigationController(rootViewController: editor.viewController)
-            editImageViewController.view.tintColor = self?.interfaceCustomization?.appearance.tintColor
-            self?.presentViewController(editImageViewController, animated: true, completion: nil)
+            tableView.tableHeaderView = header
+            tableView.enableTableHeaderViewDynamicHeight()
+        } else {
+            tableView.tableHeaderView = .None
         }
-        
-        tableView.tableHeaderView = header
-        tableView.enableTableHeaderViewDynamicHeight()
     }
     
     private func updateInterfaceCustomization() {
@@ -190,7 +193,11 @@ extension FeedbackViewController: FeedbackCollector {
     public func collectFeedbackWithScreenshot(screenshot: UIImage, fromViewController viewController: UIViewController) {
         self.screenshot = screenshot
         annotatedScreenshot = nil
-        viewController.showDetailViewController(self, sender: viewController)
+        if #available(iOS 8.0, *) {
+            viewController.showDetailViewController(self, sender: viewController)
+        } else {
+            viewController.presentViewController(self, animated: true, completion: .None)
+        }
     }
 }
 
@@ -230,13 +237,15 @@ private extension UITableView {
         tableHeaderView?.translatesAutoresizingMaskIntoConstraints = false
         
         if let headerView = tableHeaderView {
-            let leadingConstraint = headerView.leadingAnchor.constraintEqualToAnchor(leadingAnchor)
-            let trailingContraint = headerView.trailingAnchor.constraintEqualToAnchor(trailingAnchor)
-            let topConstraint = headerView.topAnchor.constraintEqualToAnchor(topAnchor)
-            let widthConstraint = headerView.widthAnchor.constraintEqualToAnchor(widthAnchor)
-            
-            NSLayoutConstraint.activateConstraints([leadingConstraint, trailingContraint, topConstraint, widthConstraint])
-            
+            if #available(iOS 9.0, *) {
+                let leadingConstraint = headerView.leadingAnchor.constraintEqualToAnchor(leadingAnchor)
+                let trailingContraint = headerView.trailingAnchor.constraintEqualToAnchor(trailingAnchor)
+                let topConstraint = headerView.topAnchor.constraintEqualToAnchor(topAnchor)
+                let widthConstraint = headerView.widthAnchor.constraintEqualToAnchor(widthAnchor)
+
+                NSLayoutConstraint.activateConstraints([leadingConstraint, trailingContraint, topConstraint, widthConstraint])
+            }
+
             headerView.layoutIfNeeded()
             tableHeaderView = headerView
         }

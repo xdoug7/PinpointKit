@@ -20,8 +20,10 @@ final class CheckmarkCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        imageView?.image = UIImage(named: "Checkmark", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil)
+
+        if #available(iOS 8.0, *) {
+            imageView?.image = UIImage(named: "Checkmark", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

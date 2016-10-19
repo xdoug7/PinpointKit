@@ -87,6 +87,7 @@ public final class EditImageViewController: UIViewController, UIGestureRecognize
         return KeyboardAvoider(window: window)
     }()
     
+    @available(iOS 8.0, *)
     private lazy var closeBarButtonItem: UIBarButtonItem = {
         UIBarButtonItem(image: UIImage(named: "CloseButtonX", inBundle: .pinpointKitBundle(), compatibleWithTraitCollection: nil), landscapeImagePhone: nil, style: .Plain, target: self, action: #selector(EditImageViewController.closeButtonTapped(_:)))
     }()
@@ -150,7 +151,9 @@ public final class EditImageViewController: UIViewController, UIGestureRecognize
         annotationsView.isAccessibilityElement = true
         annotationsView.accessibilityTraits = annotationsView.accessibilityTraits | UIAccessibilityTraitAllowsDirectInteraction
         
-        closeBarButtonItem.accessibilityLabel = "Close"
+        if #available(iOS 8.0, *) {
+            closeBarButtonItem.accessibilityLabel = "Close"
+        }
     }
     
     @available(*, unavailable)
@@ -224,7 +227,9 @@ public final class EditImageViewController: UIViewController, UIGestureRecognize
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.hidesBarsOnTap = true
+        if #available(iOS 8.0, *) {
+            navigationController?.hidesBarsOnTap = true
+        }
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
@@ -236,7 +241,10 @@ public final class EditImageViewController: UIViewController, UIGestureRecognize
     
     public override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.hidesBarsOnTap = true
+
+        if #available(iOS 8.0, *) {
+            navigationController?.hidesBarsOnTap = true
+        }
     }
     
     public override func viewDidLayoutSubviews() {
@@ -252,6 +260,7 @@ public final class EditImageViewController: UIViewController, UIGestureRecognize
         return true
     }
     
+    @available(iOS 8.0, *)
     public override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         setNeedsStatusBarAppearanceUpdate()
     }
@@ -268,10 +277,12 @@ public final class EditImageViewController: UIViewController, UIGestureRecognize
         var landscapeOrientation = UIInterfaceOrientation.LandscapeRight
         var portraitOrientation = UIInterfaceOrientation.Portrait
         
-        if traitCollection.userInterfaceIdiom == .Pad {
-            let deviceOrientation = UIDevice.currentDevice().orientation
-            landscapeOrientation = (deviceOrientation == .LandscapeRight ? .LandscapeLeft : .LandscapeRight)
-            portraitOrientation = (deviceOrientation == .PortraitUpsideDown ? .PortraitUpsideDown : .Portrait)
+        if #available(iOS 8.0, *) {
+            if traitCollection.userInterfaceIdiom == .Pad {
+                let deviceOrientation = UIDevice.currentDevice().orientation
+                landscapeOrientation = (deviceOrientation == .LandscapeRight ? .LandscapeLeft : .LandscapeRight)
+                portraitOrientation = (deviceOrientation == .PortraitUpsideDown ? .PortraitUpsideDown : .Portrait)
+            }
         }
         
         return imageIsLandscape() ? landscapeOrientation : portraitOrientation
@@ -292,6 +303,7 @@ public final class EditImageViewController: UIViewController, UIGestureRecognize
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[annotationsView]|", options: [], metrics: nil, views: views))
     }
     
+    @available(iOS 8.0, *)
     private func newCloseScreenshotAlert() -> UIAlertController {
         let alert = UIAlertController(title: nil, message: NSLocalizedString("Your edits to this screenshot will be lost unless you share it or save a copy.", comment: "Alert title for closing a screenshot that has annotations that hasn’t been shared."), preferredStyle: .ActionSheet)
         alert.addAction(UIAlertAction(title: NSLocalizedString("Discard", comment: "Alert button title to close a screenshot and discard edits"), style: .Destructive) { action in
@@ -338,7 +350,9 @@ public final class EditImageViewController: UIViewController, UIGestureRecognize
                 annotationsView.bringSubviewToFront(annotationView)
                 
                 if annotationViewIsNotBlurView {
-                    navigationController?.barHideOnTapGestureRecognizer.failRecognizing()
+                    if #available(iOS 8.0, *) {
+                        navigationController?.barHideOnTapGestureRecognizer.failRecognizing()
+                    }
                 }
             }
             
@@ -353,7 +367,9 @@ public final class EditImageViewController: UIViewController, UIGestureRecognize
                 createAnnotationPanGestureRecognizer.failRecognizing()
                 
                 if annotationViewIsNotBlurView {
-                    navigationController?.barHideOnTapGestureRecognizer.failRecognizing()
+                    if #available(iOS 8.0, *) {
+                        navigationController?.barHideOnTapGestureRecognizer.failRecognizing()
+                    }
                 }
             }
         }
@@ -444,13 +460,17 @@ public final class EditImageViewController: UIViewController, UIGestureRecognize
         endEditingTextView()
         
         // Disable the bar hiding behavior when selecting the text tool. Enable for all others.
-        navigationController?.barHideOnTapGestureRecognizer.enabled = currentTool != .Text
+        if #available(iOS 8.0, *) {
+            navigationController?.barHideOnTapGestureRecognizer.enabled = currentTool != .Text
+        }
     }
     
     private func updateInterfaceCustomization() {
         guard let appearance = interfaceCustomization?.appearance else { assertionFailure(); return }
         segmentedControl.setTitleTextAttributes([NSFontAttributeName: appearance.editorTextAnnotationSegmentFont], forState: UIControlState.Normal)
-        UITextView.appearanceWhenContainedInInstancesOfClasses([TextAnnotationView.self]).font = appearance.editorTextAnnotationFont
+        if #available(iOS 9.0, *) {
+            UITextView.appearanceWhenContainedInInstancesOfClasses([TextAnnotationView.self]).font = appearance.editorTextAnnotationFont
+        }
         
         if let annotationFillColor = appearance.annotationFillColor {
             annotationsView.tintColor = annotationFillColor

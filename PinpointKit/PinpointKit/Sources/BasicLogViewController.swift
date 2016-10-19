@@ -39,10 +39,12 @@ public class BasicLogViewController: UIViewController, LogViewer {
         func setUpTextView() {
             view.addSubview(textView)
             
-            textView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor, constant: 0).active = true
-            textView.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor, constant: 0).active = true
-            textView.widthAnchor.constraintEqualToAnchor(view.widthAnchor, constant: 0).active = true
-            textView.heightAnchor.constraintEqualToAnchor(view.heightAnchor, constant: 0).active = true
+            if #available(iOS 9.0, *) {
+                textView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor, constant: 0).active = true
+                textView.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor, constant: 0).active = true
+                textView.widthAnchor.constraintEqualToAnchor(view.widthAnchor, constant: 0).active = true
+                textView.heightAnchor.constraintEqualToAnchor(view.heightAnchor, constant: 0).active = true
+            }
         }
         
         setUpTextView()
@@ -60,6 +62,10 @@ public class BasicLogViewController: UIViewController, LogViewer {
         let logText = collector.retrieveLogs().joinWithSeparator("\n")
         textView.text = logText
         
-        viewController.showViewController(self, sender: viewController)
+        if #available(iOS 8.0, *) {
+            viewController.showViewController(self, sender: viewController)
+        } else {
+            viewController.presentViewController(self, animated: true, completion: .None)
+        }
     }
 }

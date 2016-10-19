@@ -17,7 +17,10 @@ extension UIScreen {
      - returns: The size of a pixel for the screen's portrait dimensions.
      */
     func portraitPixelSize() -> CGSize {
-        let coordinateSpaceBounds = fixedCoordinateSpace.bounds
+        var coordinateSpaceBounds = bounds
+        if #available(iOS 8.0, *) {
+            coordinateSpaceBounds = fixedCoordinateSpace.bounds
+        }
         
         return CGSize(width: coordinateSpaceBounds.width * scale, height: coordinateSpaceBounds.height * scale)
     }

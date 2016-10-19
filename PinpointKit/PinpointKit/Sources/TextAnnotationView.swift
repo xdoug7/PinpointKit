@@ -106,7 +106,11 @@ public class TextAnnotationView: AnnotationView, UITextViewDelegate {
     }
     
     private var font: UIFont {
-        return UITextView.appearanceWhenContainedInInstancesOfClasses([TextAnnotationView.self]).font ?? UIFont.systemFontOfSize(32)
+        if #available(iOS 9.0, *) {
+            return UITextView.appearanceWhenContainedInInstancesOfClasses([TextAnnotationView.self]).font ??  UIFont.systemFontOfSize(32)
+        } else {
+            return  UIFont.systemFontOfSize(32)
+        }
     }
     
     /// The minimum text size for the annotation view.

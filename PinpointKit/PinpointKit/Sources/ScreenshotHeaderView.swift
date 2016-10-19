@@ -9,6 +9,7 @@
 import UIKit
 
 /// A view that displays a screenshot and hint text about how to edit it.
+@available(iOS 9.0, *)
 class ScreenshotHeaderView: UIView {
     
     /// A type of closure that is invoked when a button is tapped.

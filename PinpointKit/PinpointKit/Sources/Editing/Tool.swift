@@ -40,21 +40,25 @@ enum Tool: Int {
     /// The image for the tool.
     var image: UIImage {
         let bundle = NSBundle.pinpointKitBundle()
-        
-        func loadImage() -> UIImage? {
-            switch self {
-            case .Arrow:
-                return UIImage(named: "ArrowIcon", inBundle: bundle, compatibleWithTraitCollection: nil)
-            case .Box:
-                return UIImage(named: "BoxIcon", inBundle: bundle, compatibleWithTraitCollection: nil)
-            case .Text:
-                return UIImage()
-            case .Blur:
-                return UIImage(named: "BlurIcon", inBundle: bundle, compatibleWithTraitCollection: nil)
+
+        if #available(iOS 8.0, *) {
+            func loadImage() -> UIImage? {
+                switch self {
+                case .Arrow:
+                    return UIImage(named: "ArrowIcon", inBundle: bundle, compatibleWithTraitCollection: nil)
+                case .Box:
+                    return UIImage(named: "BoxIcon", inBundle: bundle, compatibleWithTraitCollection: nil)
+                case .Text:
+                    return UIImage()
+                case .Blur:
+                    return UIImage(named: "BlurIcon", inBundle: bundle, compatibleWithTraitCollection: nil)
+                }
             }
+
+            return loadImage() ?? UIImage()
         }
-        
-        return loadImage() ?? UIImage()
+
+        return UIImage()
     }
     
     /// The item to use for a segmented control.
